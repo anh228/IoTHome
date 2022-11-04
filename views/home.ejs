@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="stylesheets/home.css" />
+  <script src="jquery.js"></script>
+  <script src="socket.io/socket.io.js"></script>
+  <script src="xuly.js"></script>
+  <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <nav class="sidebar close">
+    <header>
+      <div class="image-text">
+        <span class="image">
+          <img src="images/logo.png" alt="" />
+        </span>
+        <div class="text logo-text">
+          <span class="name">Kita</span>
+          <span class="profession">Park</span>
+        </div>
+      </div>
+      <i class="bx bx-chevron-right toggle"></i>
+    </header>
+    <div class="menu-bar">
+      <div class="menu">
+        <li class="search-box">
+          <i class="bx bx-search icon"></i>
+          <input type="text" placeholder="Search..." />
+        </li>
+        <ul class="menu-links">
+          <li class="nav-link">
+            <a href="
+              /">
+              <i class="bx bx-home-alt icon"></i>
+              <span class="text nav-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-link">
+            <a href="/history">
+              <i class="bx bx-history icon"></i>
+              <span class="text nav-text">History</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="bottom-content">
+        <li class="mode">
+          <div class="sun-moon">
+            <i class="bx bx-moon icon moon"></i>
+            <i class="bx bx-sun icon sun"></i>
+          </div>
+          <span class="mode-text text">Dark mode</span>
+
+          <div class="toggle-switch">
+            <span class="switch"></span>
+          </div>
+        </li>
+      </div>
+    </div>
+  </nav>
+  <section class="home">
+    <div class="text">Dashboard</div>
+    <div class="dashboard">
+      <div class="l-dashboard">
+        <div class="date-time">
+          <p id="time"></p>
+          <!-- <p style="position: absolute; top: 10px">
+              Welcome home<br />
+              it's snowing outside stay safe
+            </p> -->
+          <div class="parameter">
+            <div class="temperature info">
+              <div class="element-text">
+                <img class="element-icon" src="images/temprature.png" alt="" />
+                <p>Nhiệt độ: <a id="currentTemp"></a>°C</p>
+              </div>
+            </div>
+            <div class="humidity info">
+              <div class="element-text">
+                <img class="element-icon" src="images/drop.png" alt="" />
+                <p>
+                  Độ ẩm : <a id="currentHumi"></a>% <br />Độ ẩm đất :
+                  <a id="currentSolid"></a>%
+                </p>
+              </div>
+            </div>
+            <div class="light info">
+              <div class="element-text">
+                <img class="element-icon" src="images/sunny.png" alt="" />
+                <p>
+                  Độ sáng:
+                  <a id="currentLight"> Lux</a>
+                </p>
+              </div>
+            </div>
+            <div class="warning info" id="warningSection">
+              <div class="element-text">
+                <img class="element-icon" src="images/bell.png" alt="" />
+                <p class="right5px">Warning</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="maps">
+          <iframe
+            src="https://thoitiet.edu.vn/embed/mwpcpguvkp?days=5&hC=%23333&hB=%23dde1e7&tC=%23848484&bC=%23dde1e7&lC=%23dddddd"
+            id="widgeturl" width="95%" height="95%" scrolling="no" frameborder="0" allowtransparency="true"
+            style="border:none;overflow:hidden;"></iframe>
+        </div>
+      </div>
+
+      <div class="r-dashboard">
+        <div class="room1 info">
+          <h1>Security Room</h1>
+          <div class="grid-container">
+            <div style="width: 33.2%; height: 100%; float: right" id="Hoca" class="element-block appliances turn-off">
+              <img class="devices-icon" src="images/hoca.png" alt="" />
+              <label class="button">
+                <input type="checkbox" type="checkbox" name="" onclick="parkHoca()" id="parkHoca" />
+                <div class="slider slider--0">ON</div>
+                <div class="slider slider--1"></div>
+                <div class="slider slider--2"></div>
+                <div class="slider slider--3">OFF</div>
+              </label>
+              <div class="devices-text">
+                <p>Hồ cá</p>
+              </div>
+            </div>
+            <div style="width: 33.2%; height: 100%; float: right" id="Lamp1" class="element-block appliances turn-off">
+              <img class="devices-icon" src="images/lightbulb.png" alt="" />
+
+              <label class="button">
+                <input type="checkbox" type="checkbox" name="" onclick="parkLamp1()" id="parkLamp1" />
+                <div class="slider slider--0">ON</div>
+                <div class="slider slider--1"></div>
+                <div class="slider slider--2"></div>
+                <div class="slider slider--3">OFF</div>
+              </label>
+              <div class="devices-text">
+                <p>Đèn</p>
+              </div>
+            </div>
+            <div style="width: 33.2%; height: 100%; float: right" id="Door" class="element-block appliances turn-off">
+              <img class="devices-icon" src="images/door.png" alt="" />
+              <label class="button">
+                <input type="checkbox" type="checkbox" name="" onclick="parkDoor()" id="parkDoor" />
+                <div class="slider slider--0">ON</div>
+                <div class="slider slider--1"></div>
+                <div class="slider slider--2"></div>
+                <div class="slider slider--3">OFF</div>
+              </label>
+              <div class="devices-text">
+                <p>Cửa</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="room2 info">
+          <h1>Restroom</h1>
+          <div class="grid-container">
+            <div style="width: 41%; height: 100%; float: right" id="Light2" class="element-block appliances turn-off">
+              <img class="devices-icon" src="images/lightbulb.png" alt="" />
+
+              <label class="button">
+                <input type="checkbox" type="checkbox" name="" onclick="parkLight2()" id="parkLight2" />
+                <div class="slider slider--0">ON</div>
+                <div class="slider slider--1"></div>
+                <div class="slider slider--2"></div>
+                <div class="slider slider--3">OFF</div>
+              </label>
+              <div class="devices-text">
+                <p>Đèn</p>
+              </div>
+            </div>
+            <div style="width: 41%; height: 100%; float: right" id="Fan" class="element-block appliances turn-off">
+              <img class="devices-icon" src="images/fan.png" alt="" />
+              <label class="button">
+                <input type="checkbox" type="checkbox" name="" onclick="parkFan()" id="parkFan" />
+                <div class="slider slider--0">ON</div>
+                <div class="slider slider--1"></div>
+                <div class="slider slider--2"></div>
+                <div class="slider slider--3">OFF</div>
+              </label>
+              <div class="devices-text">
+                <p>Quạt</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    const body = document.querySelector("body"),
+      sidebar = body.querySelector("nav"),
+      toggle = body.querySelector(".toggle"),
+      searchBtn = body.querySelector(".search-box"),
+      modeSwitch = body.querySelector(".toggle-switch"),
+      modeText = body.querySelector(".mode-text");
+    toggle.addEventListener("click", () => {
+      sidebar.classList.toggle("close");
+    });
+    searchBtn.addEventListener("click", () => {
+      sidebar.classList.remove("close");
+    });
+    modeSwitch.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      if (body.classList.contains("dark")) {
+        modeText.innerText = "Light mode";
+      } else {
+        modeText.innerText = "Dark mode";
+      }
+    });
+    // ------------- RTC ------------
+    var timeDisplay = document.getElementById("time");
+
+    function refreshTime() {
+      var dateString = new Date().toLocaleString("en-US", {
+        timeZone: "Asia/Jakarta",
+      });
+      var formattedString = dateString.replace(", ", " - ");
+      timeDisplay.innerHTML = formattedString;
+    }
+
+    setInterval(refreshTime, 1000);
+      // ------------------------------
+  </script>
+</body>
+
+</html>
